@@ -1,0 +1,28 @@
+{
+  "name": "minode-dal",
+  "version": "0.0.0",
+  "description": "MiNode Kit(A set of BBC Micro:Bit Accessories) drivers",
+  "keywords": [
+    "minode",
+    "microbit",
+    "micro:bit",
+    "bbc",
+    "accessories",
+    "grove",
+    "elec-brick"
+  ],
+  "author": "Paul Niu <niuyj@embest-tech.com>",
+  "repository": {
+    "url": "https://github.com/minodekit/minode-dal.git",
+    "type": "git"
+  },
+  "homepage": "http://minodekit.github.io/minode-dal-docs",
+  "license": "MIT",
+  "dependencies": {
+    "microbit-dal": "lancaster-university/microbit-dal"
+  },
+  "extraIncludes": [
+    "inc/core",
+    "inc/drivers"
+  ]
+}
