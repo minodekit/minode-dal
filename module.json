@@ -21,6 +21,9 @@
   "dependencies": {
     "microbit-dal": "lancaster-university/microbit-dal"
   },
+  "testDependencies": {
+    "microbit": "lancaster-university/microbit"
+  },
   "extraIncludes": [
     "inc/core",
     "inc/drivers"

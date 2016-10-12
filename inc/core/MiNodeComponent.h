@@ -33,8 +33,8 @@
 
 
 
-#define MINODE_ID_MODUlE_START          120
-
+#define MINODE_ID_MODULE_START          120
+#define MINODE_ID_MODULE_SWITCH         MINODE_ID_MODULE_START
 
 
 
