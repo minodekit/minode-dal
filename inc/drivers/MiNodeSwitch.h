@@ -18,18 +18,14 @@ public:
   MiNodeSwitch(int id, ConnName connName);
   MiNodeSwitch(int id, PinName pinName);
 
-  void eventOn(int eventType);
-
   int isOpened();
 
-
-
-
-private:
+protected:
   InterruptIn pin;
 
   void onOpen();
   void onClose();
+  void eventOn();
 };
 
 #endif

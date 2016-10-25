@@ -3,16 +3,20 @@
 
 
 MicroBit uBit;
-MiNodeSwitch switchModule(MINODE_ID_MODULE_SWITCH, A0);
+MiNodeSwitch switch1(MINODE_ID_MODULE_SWITCH, A0);
 
-void onSwitchOn(MicroBitEvent evt)
+void onSwitchOnOff(MicroBitEvent e)
 {
-  uBit.display.print("ON");
-}
-
-void onSwitchOff(MicroBitEvent evt)
-{
-  uBit.display.print("OFF");
+  if(e.source == MINODE_ID_MODULE_SWITCH) {
+    switch(e.value) {
+      case MINODE_SWITCH_EVT_OPEN:
+        uBit.display.print("ON");
+        break;
+      case MINODE_SWITCH_EVT_CLOSE:
+        uBit.display.print("OFF");
+        break;
+    }
+  }
 }
 
 
@@ -21,16 +25,14 @@ int main() {
   uBit.init();
   uBit.display.print(":)");
 
-  switchModule.eventOn(MINODE_SWITCH_EVT_OPEN);
-  switchModule.eventOn(MINODE_SWITCH_EVT_CLOSE);
-
-  uBit.messageBus.listen(MINODE_ID_MODULE_SWITCH, MINODE_SWITCH_EVT_OPEN, onSwitchOn);
-  uBit.messageBus.listen(MINODE_ID_MODULE_SWITCH, MINODE_SWITCH_EVT_CLOSE, onSwitchOff);
+  uBit.messageBus.listen(MINODE_ID_MODULE_SWITCH, MINODE_SWITCH_EVT_OPEN, onSwitchOnOff);
+  uBit.messageBus.listen(MINODE_ID_MODULE_SWITCH, MINODE_SWITCH_EVT_CLOSE, onSwitchOnOff);
 
 
   while(1) {
     uBit.sleep(100);
   }
+
 
 	return 0;
 }
