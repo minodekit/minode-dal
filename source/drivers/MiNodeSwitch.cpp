@@ -5,7 +5,7 @@ pin(MiNodeConn::calcP0Name(connName))
 {
   this->id = id;
   pin.mode(PullNone);
-  eventOn();
+  system_timer_add_component(this);
 }
 
 MiNodeSwitch::MiNodeSwitch(int id, PinName pinName) :
@@ -13,7 +13,7 @@ pin(pinName)
 {
   this->id = id;
   pin.mode(PullNone);
-  eventOn();
+  system_timer_add_component(this);
 }
 
 void MiNodeSwitch::eventOn()
@@ -24,15 +24,25 @@ void MiNodeSwitch::eventOn()
 
 void MiNodeSwitch::onOpen()
 {
-  MicroBitEvent(id, MINODE_SWITCH_EVT_OPEN);
+  MicroBitEvent evt(MINODE_ID_MODULE_SWITCH,MINODE_SWITCH_EVT_OPEN);
 }
 
 void MiNodeSwitch::onClose()
 {
-  MicroBitEvent(id, MINODE_SWITCH_EVT_CLOSE);
+  MicroBitEvent evt(MINODE_ID_MODULE_SWITCH,MINODE_SWITCH_EVT_CLOSE);
 }
 
 int MiNodeSwitch::isOpened()
 {
   return pin.read();
 }
+
+void MiNodeSwitch::systemTick()
+{
+}
+
+MiNodeSwitch::~MiNodeSwitch()
+{
+    system_timer_remove_component(this);
+}
+

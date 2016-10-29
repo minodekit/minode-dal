@@ -1,5 +1,5 @@
-#ifndef MINODE_SWITCH_H
-#define MINODE_SWITCH_H
+#ifndef MINODE_MIC_H
+#define MINODE_MIC_H
 
 #include "mbed.h"
 
@@ -11,25 +11,28 @@
 #include "MicroBitDisplay.h"
 #include "MicroBitSystemTimer.h"
 
+#define MINODE_MIC_EVT_NOISE                  1
 
-#define MINODE_SWITCH_EVT_OPEN                  1
-#define MINODE_SWITCH_EVT_CLOSE                 2
+#define MINODE_MIC_NOISE_THRESHOLD            50
 
-class MiNodeSwitch : public MicroBitComponent
+class MiNodeMIC : public MicroBitComponent
 {
 public:
 
-  MiNodeSwitch(int id, ConnName connName);
-  MiNodeSwitch(int id, PinName pinName);
+  MiNodeMIC(int id, ConnName connName);
+  MiNodeMIC(int id, PinName pinName);
 
   void eventOn();
   int isOpened();
+  int getADvalue();
 
   virtual void systemTick();
-  ~MiNodeSwitch();
+  ~MiNodeMIC();
 
 private:
-  InterruptIn pin;
+  AnalogIn  pin;
+  int count;
+  int currentAD;
   
   void onOpen();
   void onClose();
