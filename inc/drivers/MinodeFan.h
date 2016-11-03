@@ -18,11 +18,14 @@ public:
   MiNodeFAN(int id, ConnName connName);
   MiNodeFAN(int id, PinName pinName);
 
+  void fanOpen();
+  void fanClose();
+
   virtual void systemTick();
   ~MiNodeFAN();
 
 private:
-  InterruptIn pin;
+  DigitalOut pin;
   
 };
 

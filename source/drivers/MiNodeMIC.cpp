@@ -1,26 +1,25 @@
 #include "MiNodeMIC.h"
 
 MiNodeMIC::MiNodeMIC(int id, ConnName connName) :
-pin(MiNodeConn::calcP0Name(connName))
+pin(MiNodeConn::calcP0Name(connName)),currentAD(-1)
 {
   this->id = id;
   count = 0;
-  currentAD = -1;
   system_timer_add_component(this);
 }
 
 MiNodeMIC::MiNodeMIC(int id, PinName pinName) :
-pin(pinName)
+pin(pinName),currentAD(-1)
 {
   this->id = id;
   count = 0;
-  currentAD = -1;
   system_timer_add_component(this);
 }
 
 void MiNodeMIC::systemTick()
 {
   count++;
+  int temp_ad=0;
 
   if (count == 20)
   {
@@ -30,10 +29,11 @@ void MiNodeMIC::systemTick()
     }
     else
     {
-      if ((getADvalue() - currentAD > MINODE_MIC_NOISE_THRESHOLD) || (getADvalue() - currentAD < (0-MINODE_MIC_NOISE_THRESHOLD)))
+      temp_ad = getADvalue();
+      if ((temp_ad - currentAD > MINODE_MIC_NOISE_THRESHOLD) || (temp_ad - currentAD < (0-MINODE_MIC_NOISE_THRESHOLD)))
       {
         MicroBitEvent evt(MINODE_ID_MODULE_MIC,MINODE_MIC_EVT_NOISE);
-        currentAD = getADvalue();
+        currentAD = temp_ad;
       }
     }
     count = 0;

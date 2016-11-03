@@ -23,6 +23,7 @@ public:
 
   void eventOn();
   void onTrigger();
+  int readPir();
 
   virtual void systemTick();
   ~MiNodePIR();

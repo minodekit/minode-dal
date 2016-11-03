@@ -12,7 +12,8 @@
 #include "MicroBitSystemTimer.h"
 
 #define MINODE_DHT_EVT_CHANGE                  1
-#define TIME_TH 		                       100000
+#define TIME_TH 		                       10000
+
 
 #define delay60US()\
 t++;t++;t++;t++;t++;t++;t++;t++;t++;t++;\
@@ -32,7 +33,7 @@ t++;t++;t++;t++;t++;t++;t++;t++;t++;t++;\
 
 class MiNodeDHT : public MicroBitComponent
 {
-
+    
   public:
     MiNodeDHT(int id, ConnName connName);
     MiNodeDHT(int id, PinName pinName);
@@ -46,16 +47,13 @@ class MiNodeDHT : public MicroBitComponent
 
   private:
     DigitalInOut  pin;
+
     int Humidity;
     int Temperature;
-    int count;
     int currentTem;
-    int CHECKSUM;
-    int R_H;
-    int R_L;
-    int T_H;
-    int T_L;
+    int count;
     int bt;
+
     volatile int t;
     volatile int time_out;
 

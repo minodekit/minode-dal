@@ -1,33 +1,18 @@
 #include "MiNodeDHT11.h"
 
+
 MiNodeDHT::MiNodeDHT(int id, ConnName connName) :
-pin(MiNodeConn::calcP0Name(connName))
+pin(MiNodeConn::calcP0Name(connName)),currentTem(-99)
 {
   this->id = id;
-  count = 0;
-  currentTem = -99;
-  CHECKSUM=0;
-  R_H=0;
-  R_L=0;
-  T_H=0;
-  T_L=0;
-  bt=0;
   pin.mode(PullNone);
   system_timer_add_component(this);
 }
 
 MiNodeDHT::MiNodeDHT(int id, PinName pinName) :
-pin(pinName)
+pin(pinName),currentTem(-99)
 {
   this->id = id;
-  count = 0;
-  currentTem = -99;
-  CHECKSUM=0;
-  R_H=0;
-  R_L=0;
-  T_H=0;
-  T_L=0;
-  bt=0;
   pin.mode(PullNone);
   system_timer_add_component(this);
 }
@@ -100,32 +85,36 @@ void MiNodeDHT::dhtReadOneByte()
 
 void MiNodeDHT::systemTick()
 {
-  int temp;
+  int temp=0;
   count++;
 
-  if (count == 100)
+ if (count == 100)
   {
-    if (currentTem == -99)
+    /* if (currentTem == -99)
     {
       currentTem = getTemperature();
     }
-
-    temp = getTemperature();
-    if ((temp - currentTem == 1) || (currentTem - temp == 1))
+    */
+    //temp = getTemperature();
+  /*  if ((temp - currentTem == 1) || (currentTem - temp == 1))
     {
       currentTem = temp;
       MicroBitEvent(id, MINODE_DHT_EVT_CHANGE);
     }
-    
+   */
     count = 0;
   }
+
 }
 
 int MiNodeDHT::dhtGetHt()
 {
-    bt = 0;
+    int CHECKSUM=0;
+    int R_H=0;
+    int R_L=0;
+    int T_H=0;
+    int T_L=0;
 
-    CHECKSUM = 0xff;
     dhtStart();
     dhtReadAck();
 

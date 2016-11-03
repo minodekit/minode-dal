@@ -43,6 +43,7 @@ class MiNodeLight : public MicroBitComponent
 	  MiNodeLight(int id, PinName pinName);
 	  
 	  unsigned short getLightLevel(void);
+	  unsigned short getLight(void);
 	  
 	  virtual void systemTick();
 	   ~MiNodeLight();
@@ -50,7 +51,7 @@ class MiNodeLight : public MicroBitComponent
 	private:
 	  AnalogIn pin;
 
-      unsigned short getLight(void);
+      
 	  void onOpen();
 	  void onClose();
 };
