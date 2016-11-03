@@ -2,14 +2,11 @@
 #define MINODE_SWITCH_H
 
 #include "mbed.h"
-
 #include "MicroBitConfig.h"
 #include "MicroBitComponent.h"
 #include "MicroBitEvent.h"
 #include "MiNodeComponent.h"
 #include "MiNodeConn.h"
-#include "MicroBitDisplay.h"
-#include "MicroBitSystemTimer.h"
 
 
 #define MINODE_SWITCH_EVT_OPEN                  1
@@ -18,21 +15,17 @@
 class MiNodeSwitch : public MicroBitComponent
 {
 public:
-
   MiNodeSwitch(int id, ConnName connName);
   MiNodeSwitch(int id, PinName pinName);
 
-  void eventOn();
   int isOpened();
 
-  virtual void systemTick();
-  ~MiNodeSwitch();
-
-private:
+protected:
   InterruptIn pin;
-  
+
   void onOpen();
   void onClose();
+  void eventOn();
 };
 
 #endif
