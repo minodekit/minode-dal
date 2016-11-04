@@ -43,7 +43,7 @@ public:
 
     if(findModule == NULL) {
       findModule = new T();
-      findModule->initConnector(conn);
+      findModule->attach(conn);
       modules.push_back(findModule);
     }
 

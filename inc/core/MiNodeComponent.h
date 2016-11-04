@@ -3,6 +3,7 @@
 
 #include "MicroBitConfig.h"
 #include "MicroBitComponent.h"
+#include "MiNodeConn.h"
 
 
 #define MINODE_ID_START                 100
@@ -33,19 +34,35 @@
 
 
 
-#define MINODE_ID_MODULE_START          120
+#define MINODE_ID_MODULE_START          150
 #define MINODE_ID_MODULE_SWITCH         MINODE_ID_MODULE_START
-#define MINODE_ID_MODULE_LIGHT          MINODE_ID_MODULE_START+1
-#define MINODE_ID_MODULE_DHT11          MINODE_ID_MODULE_START+2
-#define MINODE_ID_MODULE_RGB            MINODE_ID_MODULE_START+3
-#define MINODE_ID_MODULE_PIR            MINODE_ID_MODULE_START+4
-#define MINODE_ID_MODULE_MIC            MINODE_ID_MODULE_START+5
-#define MINODE_ID_MODULE_ROTARY         MINODE_ID_MODULE_START+6
-#define MINODE_ID_MODULE_RELAY          MINODE_ID_MODULE_START+7
-#define MINODE_ID_MODULE_FAN            MINODE_ID_MODULE_START+8
-#define MINODE_ID_MODULE_SPEAKER        MINODE_ID_MODULE_START+9
+#define MINODE_ID_MODULE_LIGHT          MINODE_ID_MODULE_START+20
+#define MINODE_ID_MODULE_DHT11          MINODE_ID_MODULE_START+40
+#define MINODE_ID_MODULE_RGB            MINODE_ID_MODULE_START+60
+#define MINODE_ID_MODULE_PIR            MINODE_ID_MODULE_START+80
+#define MINODE_ID_MODULE_MIC            MINODE_ID_MODULE_START+100
+#define MINODE_ID_MODULE_ROTARY         MINODE_ID_MODULE_START+120
+#define MINODE_ID_MODULE_RELAY          MINODE_ID_MODULE_START+140
+#define MINODE_ID_MODULE_FAN            MINODE_ID_MODULE_START+160
+#define MINODE_ID_MODULE_SPEAKER        MINODE_ID_MODULE_START+180
 
 
+class MiNodeComponent : public MicroBitComponent
+{
+public:
+  MiNodeComponent();
+  ~MiNodeComponent();
+
+  ConnName getConnector();
+  int getId();
+
+protected:
+
+  void initConnector(ConnName connName);
+
+  ConnName cn;
+  int baseId;
+};
 
 
 #endif

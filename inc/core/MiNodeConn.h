@@ -4,7 +4,7 @@
 #include "mbed.h"
 #include "MicroBitConfig.h"
 #include "MicroBitPin.h"
-#include "MicroBitComponent.h"
+
 
 typedef enum
 {

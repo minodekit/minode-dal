@@ -2,18 +2,11 @@
 
 
 MiNodeSwitch::MiNodeSwitch() :
-_connName(MN_NC),
 pin(NULL)
 {
-  this->id = MINODE_ID_NC;
+  this->baseId = MINODE_ID_MODULE_SWITCH;
 }
 
-MiNodeSwitch::MiNodeSwitch(ConnName connName) :
-_connName(connName),
-pin(NULL)
-{
-  this->id = MiNodeConn::calcId(connName);
-}
 
 MiNodeSwitch::~MiNodeSwitch()
 {
@@ -22,30 +15,20 @@ MiNodeSwitch::~MiNodeSwitch()
   }
 }
 
-void MiNodeSwitch::initConnector(ConnName connName)
+void MiNodeSwitch::attach(ConnName connName)
 {
-  if(_connName != MN_NC) {
+  if(this->cn != MN_NC) {
     return;
   }
 
-  _connName = connName;
-  this->id = MiNodeConn::calcId(connName);
+  MiNodeComponent::initConnector(connName);
   eventOn();
 }
 
-ConnName MiNodeSwitch::getConnector()
-{
-  return _connName;
-}
-
-int MiNodeSwitch::getId()
-{
-  return MINODE_ID_MODULE_SWITCH + this->id;
-}
 
 void MiNodeSwitch::eventOn()
 {
-  PinName pinName = MiNodeConn::calcP0Name(_connName);
+  PinName pinName = MiNodeConn::calcP0Name(this->cn);
   if(pin) {
     delete pin;
   }
@@ -58,12 +41,12 @@ void MiNodeSwitch::eventOn()
 
 void MiNodeSwitch::onOpen()
 {
-  MicroBitEvent(MINODE_ID_MODULE_SWITCH + id, MINODE_SWITCH_EVT_OPEN);
+  MicroBitEvent(this->baseId + this->id, MINODE_SWITCH_EVT_OPEN);
 }
 
 void MiNodeSwitch::onClose()
 {
-  MicroBitEvent(MINODE_ID_MODULE_SWITCH + id, MINODE_SWITCH_EVT_CLOSE);
+  MicroBitEvent(this->baseId + this->id, MINODE_SWITCH_EVT_CLOSE);
 }
 
 int MiNodeSwitch::isOpened()
