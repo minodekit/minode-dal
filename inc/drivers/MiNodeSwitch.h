@@ -8,8 +8,11 @@
 #include "MiNodeComponent.h"
 
 
-#define MINODE_SWITCH_EVT_OPEN                  1
-#define MINODE_SWITCH_EVT_CLOSE                 2
+typedef enum {
+  MINODE_SWITCH_EVT_OPEN = 1,
+  MINODE_SWITCH_EVT_CLOSE = 2,
+}SwitchEvent;
+
 
 class MiNodeSwitch : public MiNodeComponent
 {
