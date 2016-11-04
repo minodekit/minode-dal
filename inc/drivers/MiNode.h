@@ -1,18 +1,18 @@
-#ifndef _MINODE_MODULES_H
-#define _MINODE_MODULES_H
+#ifndef _MINODE_H
+#define _MINODE_H
 
 #include "MiNodeModulePool.h"
 #include "MiNodeSwitch.h"
 
-class MiNodeModules
+class MiNode
 {
 
 public:
-  MiNodeModules() {
+  MiNode() {
 
   }
 
-  ~MiNodeModules() {
+  ~MiNode() {
 
   }
 

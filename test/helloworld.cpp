@@ -8,7 +8,7 @@
 #include "../inc/drivers/MiNodeRotary.h"
 #include "../inc/drivers/MiNodeFan.h"
 #include "mbed.h"
-#include "MiNodeModules.h"
+#include "MiNode.h"
 
 #define DEMO_STATUS_ROBOT           1
 #define DEMO_STATUS_GUARD           2
@@ -25,7 +25,7 @@ int demo_status=0;
 int trig_flag=0;
 int guard_flag=0;
 int Human_flag=0;
-MiNodeModules minode;
+MiNode minode;
 
 MicroBit uBit;
 MicroBitDisplay display1;
