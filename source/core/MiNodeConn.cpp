@@ -49,6 +49,42 @@ void MiNodeConn::calcPinName(ConnName name, PinName* p0, PinName* p1)
   return;
 }
 
+ConnName MiNodeConn::calcConnName(PinName p0)
+{
+  ConnName conn = MN_NC;
+
+  switch(p0) {
+    case MICROBIT_PIN_P0:
+      conn = A0;
+      break;
+    case MICROBIT_PIN_P1:
+      conn = A1;
+      break;
+    case MICROBIT_PIN_P2:
+      conn = A2;
+      break;
+
+    case MICROBIT_PIN_P12:
+      conn = D12;
+      break;
+    case MICROBIT_PIN_P13:
+      conn = D13;
+      break;
+    case MICROBIT_PIN_P14:
+      conn = D14;
+      break;
+    case MICROBIT_PIN_P15:
+      conn = D15;
+      break;
+  }
+  return conn;
+}
+
+int MiNodeConn::calcId(ConnName name)
+{
+  return (int)name;
+}
+
 PinName MiNodeConn::calcP0Name(ConnName name)
 {
   PinName pin0;

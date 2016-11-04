@@ -14,7 +14,8 @@ typedef enum
   D12 = 12,
   D13 = 13,
   D14 = 14,
-  D15 = 15
+  D15 = 15,
+  MN_NC = NC
 }ConnName;
 
 class MiNodeConn
@@ -29,6 +30,8 @@ public:
   MiNodeConn(int id, PinName p0, PinName p1);
 
   static void calcPinName(ConnName name, PinName* p0, PinName* p1);
+  static int calcId(ConnName name);
+  static ConnName calcConnName(PinName p0);
   static PinName calcP0Name(ConnName name);
   static PinName calcP1Name(ConnName name);
 

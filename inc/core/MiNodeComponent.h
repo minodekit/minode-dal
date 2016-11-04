@@ -6,7 +6,7 @@
 
 
 #define MINODE_ID_START                 100
-#define MINODE_ID_NC                    199
+#define MINODE_ID_NC                    (uint16_t)0xFFFFFFFF
 
 #define MINODE_ID_A0                    MINODE_ID_START
 #define MINODE_ID_A1                    MINODE_ID_A0 + 2

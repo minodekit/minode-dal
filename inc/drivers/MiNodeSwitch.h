@@ -15,17 +15,24 @@
 class MiNodeSwitch : public MicroBitComponent
 {
 public:
-  MiNodeSwitch(int id, ConnName connName);
-  MiNodeSwitch(int id, PinName pinName);
+  MiNodeSwitch();
+  MiNodeSwitch(ConnName connName);
+  ~MiNodeSwitch();
 
+  void initConnector(ConnName connName);
+  ConnName getConnector();
+  int getId();
   int isOpened();
 
 protected:
-  InterruptIn pin;
 
   void onOpen();
   void onClose();
   void eventOn();
+
+private:
+  ConnName _connName;
+  InterruptIn* pin;
 };
 
 #endif

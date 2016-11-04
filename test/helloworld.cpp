@@ -8,6 +8,7 @@
 #include "../inc/drivers/MiNodeRotary.h"
 #include "../inc/drivers/MiNodeFan.h"
 #include "mbed.h"
+#include "MiNodeModules.h"
 
 #define DEMO_STATUS_ROBOT           1
 #define DEMO_STATUS_GUARD           2
@@ -24,6 +25,7 @@ int demo_status=0;
 int trig_flag=0;
 int guard_flag=0;
 int Human_flag=0;
+MiNodeModules minode;
 
 MicroBit uBit;
 MicroBitDisplay display1;
@@ -131,10 +133,46 @@ void onButtonBClick(MicroBitEvent)
   uBit.io.P1.setServoPulseUs(0);
 }
 
+void onSwitch0Change(MicroBitEvent e)
+{
+  switch(e.value) {
+    case MINODE_SWITCH_EVT_OPEN:
+      display1.scroll("0");
+      break;
+    case MINODE_SWITCH_EVT_CLOSE:
+      display1.scroll("x");
+      break;
+  }
+}
+
+void onSwitch1Change(MicroBitEvent e)
+{
+  switch(e.value) {
+    case MINODE_SWITCH_EVT_OPEN:
+      display1.scroll("y");
+      break;
+    case MINODE_SWITCH_EVT_CLOSE:
+      display1.scroll("n");
+      break;
+  }
+}
+
 int main() {
 
   int temp;
+  MiNodeSwitch* pSwitchA;
+  MiNodeSwitch* pSwitchB;
   uBit.init();
+
+  pSwitchA = minode.switchs.attach(A0);
+  pSwitchB = minode.switchs.attach(A1);
+  uBit.messageBus.listen(pSwitchA->getId(), MINODE_SWITCH_EVT_OPEN, onSwitch0Change);
+  uBit.messageBus.listen(pSwitchA->getId(), MINODE_SWITCH_EVT_CLOSE, onSwitch0Change);
+  uBit.messageBus.listen(pSwitchB->getId(), MINODE_SWITCH_EVT_OPEN, onSwitch1Change);
+  uBit.messageBus.listen(pSwitchB->getId(), MINODE_SWITCH_EVT_CLOSE, onSwitch1Change);
+  while(1) {
+    uBit.sleep(100);
+  }
 
   uBit.messageBus.listen(MINODE_ID_MODULE_PIR, MINODE_PIR_EVT_TRIG, onPIRTRIG);
   uBit.messageBus.listen(MINODE_ID_MODULE_MIC, MINODE_MIC_EVT_NOISE, onMICTRIG);
@@ -142,6 +180,7 @@ int main() {
   uBit.messageBus.listen(MICROBIT_ID_BUTTON_B, MICROBIT_BUTTON_EVT_CLICK, onButtonBClick);
 
   demo_status = DEMO_STATUS_ROBOT;
+
 
   while(1) {
     uBit.sleep(100);
